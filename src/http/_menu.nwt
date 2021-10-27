@@ -1,0 +1,40 @@
+<div class="box">
+  <div class="block">
+    <h1 class="title is-2">Parasite</h1>
+    <h2 class="subtitle is-4">http module</h3>
+  </div>
+  <aside class="menu is-small">
+    <p class="menu-label">
+      Host Machine
+    </p>
+      <ul class="menu-list">
+        <li><a {% if request.path=="/" %}class="is-active"{% endif %} href="/">Environment info</a></li>
+        <li><a {% if request.path=="/processes" %}class="is-active"{% endif %} href="/processes">Process list</a></li>
+      </ul>
+    <p class="menu-label">
+      Host Process
+    </p>
+      <ul class="menu-list">
+        <li><a {% if request.path=="/modules" %}class="is-active"{% endif %} href="/modules">Modules</a></li>
+      </ul>
+    <p class="menu-label">
+      Tools
+    </p>
+      <ul class="menu-list">
+        <li><a {% if request.path=="/shell" %}class="is-active"{% endif %} href="/shell">Shell</a></li>
+        <li><a {% if request.path=="/wmi" %}class="is-active"{% endif %} href="/wmi">WMI</a></li>
+      </ul>
+    <p class="menu-label">
+      <a href="/quit">Terminate Host Process</a>
+    </p>
+  </aside>
+</div>
+{% if request.path=="/modules" %}
+{% importnwt "http/_modloadmenu.nwt" %}
+{% endif %}
+<div class="box">
+  <div class="block">
+    <p><a href="https://github.com/srozb/parasite">Parasite v.0.1.0</a> {{ arch }}-bit</p>
+    <p>Host: {{pName}} ({{ pid }})</p>
+  </div>
+</div>

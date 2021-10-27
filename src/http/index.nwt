@@ -1,0 +1,25 @@
+{% extends "http/_master.nwt" %}
+{% block content %}
+<div class="box">
+  <div class="block">
+    <h4 id="host-proc-info" class="subtitle is-5">Host process information:<a href="#host-proc-info" title="Host process information"></a></h4>
+  </div>
+  <div class="content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>attribute</th>
+          <th>value</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for k in envInfo.keys %}
+        <tr>
+          <td>{{ k }}</td>
+          <td>{{ envInfo[k] }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

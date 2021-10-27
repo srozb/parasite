@@ -1,0 +1,31 @@
+{% extends "http/_master.nwt" %}
+{% block content %}
+<div class="box">
+  <div class="block">
+    <h4 id="run-wmi-query" class="subtitle is-5">Run WMI query:<a href="#run-wmi-query" title="Run WMI query"></a></h4>
+  </div>
+  <div class="block">
+    <!-- <div class="control">
+      <textarea class="textarea" rows="20" placeholder="{{ output }}" disabled></textarea>
+    </div> -->
+  <pre>{{ output }}</pre>
+  </div>
+  <div class="block">
+    <form action="/wmi" method="post">
+      <div class="field">
+        <label class="label">Namespace</label>
+        <div class="control">
+          <input class="input" type="text" name="namespace" placeholder="e.g root\cimv2">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Query</label>
+        <div class="control">
+          <input class="input" type="text" name="query" placeholder="e.g select * from win32_process">
+        </div>
+      </div>
+      <button class="button" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

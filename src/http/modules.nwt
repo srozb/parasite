@@ -1,0 +1,30 @@
+{% extends "http/_master.nwt" %}
+{% block content %}
+<div class="box">
+  <div class="block">
+    <h4 id="loaded-modules" class="subtitle is-5">Loaded Modules:<a href="#loaded-modules" title="Loaded Modules"></a></h4>
+  </div>
+  <table class="table content is-small is-striped">
+    <thead>
+      <tr>
+        <th>handle</th>
+        <th>path</th>
+        <th>action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in mods %}
+      {% if m.path == myPath %}
+      <tr class="is-selected">
+      {% else %}
+      <tr>
+      {% endif %}
+        <td>{{ m.handle }}</td>
+        <td>{{ m.path }}</td>
+        <td><button class="button is-danger is-outlined is-small is-rounded" onclick="location.href='/modules/unload/{{m.name}}';">Unload</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

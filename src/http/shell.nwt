@@ -1,0 +1,19 @@
+{% extends "http/_master.nwt" %}
+{% block content %}
+<div class="box">
+  <div class="block">
+    <h4 id="run-command" class="subtitle is-5">Run command:<a href="#run-command" title="Run command"></a></h4>
+  </div>
+  <div class="block">
+    <!-- <div class="control">
+      <textarea class="textarea" rows="20" placeholder="{{ output }}" disabled></textarea>
+    </div> -->
+  <pre>{{ output }}</pre>
+  </div>
+  <div class="block">
+    <form action="/shell" method="post">
+      <input class="input is-danger is-rounded" type="text" name="cmd" placeholder="command to run">
+    </form>
+  </div>
+</div>
+{% endblock %}

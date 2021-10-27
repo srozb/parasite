@@ -1,0 +1,12 @@
+<div class="box">
+  <div class="block">
+  <h2 class="subtitle is-5">Load module</h3>
+  </div>
+  <div class="field has-addons">
+    <form action="/modules/load" method="post">
+      <div class="control">
+        <input class="input" name="modname" type="text" placeholder="module name">
+      </div>
+    </form>
+  </div>
+</div>

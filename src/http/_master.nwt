@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parasite</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/bulma.min.css">
+  </head>
+  <body>
+    <div class="block"></div>
+    <div class="columns">
+      <div class="column is-1"></div>
+      <div class="column is-2">
+        {% importnwt "http/_menu.nwt" %}
+      </div>
+      <div class="column is-6">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="column"></div>
+    </div>
+  </body>
+</html>

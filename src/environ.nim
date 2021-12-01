@@ -1,6 +1,8 @@
 import strtabs
 import winim
 import psapi
+import os
+import strutils
 
 const arch* = $(sizeof(int)*8)
 
@@ -9,8 +11,10 @@ proc getEnvInfo*(): StringTableRef =
   result = newStringTable()
   result["Current User"] = getCurrentUser()
   result["Image"] = getModulesInfo()[0].path
-  result["PID"] = $GetCurrentProcessId()
   result["Elevated"] = $isElevated()
+  result["pid"] = $GetCurrentProcessId()
+  result["pName"] = getAppFilename().rsplit('\\', 1)[1]
+  result["myPath"] = getMyPath()
   
 
 when isMainModule:

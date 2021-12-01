@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {% for m in mods %}
-      {% if m.path == myPath %}
+      {% if m.path == envInfo["myPath"] %}
       <tr class="is-selected">
       {% else %}
       <tr>

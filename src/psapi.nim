@@ -1,16 +1,12 @@
 import winim
 import strutils
 import strformat
-import os
 import psutil / psutil_windows
-
-let
-  pid* = GetCurrentProcessId().int
-  pName* = getAppFilename().rsplit('\\', 1)[1]
 
 type Module* = object
   name*, path*: string
   handle*: int
+  hasNimMain*: bool
 
 type ModuleList* = seq[Module]
 
@@ -21,24 +17,21 @@ type Process* = object
 
 type ProcessList* = seq[Process]
 
-proc `$`*(self: ModuleList): string =
-  result.add("PID: " & $pid & '\n')
+func `$`*(self: ModuleList): string =
   result.add("Modules list:" & '\n')
   for m in self:
-    result.add(fmt"  * 0x{m.handle:x} {m.path}" & '\n')
+    result.add(fmt"  * 0x{m.handle:x} {m.path} NimMain:{m.hasNimMain}" & '\n')
 
-proc `$`*(self: ProcessList): string =
+func `$`*(self: ProcessList): string =
   result.add("Running processes:" & '\n')
   for p in self:
     result.add(fmt"[{p.pid}] {p.name} ({p.path}) ACCESS:{p.accessible}" & '\n')
 
-proc `$`*(self: seq[char]): string =
+func `$`*(self: var seq[char]): string {.inline.} =
   ## Convinient function to convert null terminated cstring in form of `seq[char]`
   ## to native string type and get rid of remaining \0s. 
-  for c in self.items:
-    if c == '\0':
-      break
-    result.add(c)
+  self.setLen(self.find('\0'))
+  result = self.join
 
 proc resolveModule(hProcess: HANDLE, hMod: HMODULE): string =
   ## Resolve the DLL name.
@@ -75,17 +68,15 @@ proc getModulesInfo*(): ModuleList =
       let
         mPath = resolveModule(hProcess, h)
         mName = mPath.rsplit('\\', maxsplit=1)[1]
-        mdl = Module(name: mName, path: mPath, handle: h)
+        hasNimMain = GetProcAddress(h, "NimMain".LPCSTR) != cast[FARPROC](0)
+        mdl = Module(name: mName, path: mPath, handle: h, hasNimMain:hasNimMain)
       module_list.add(mdl)
   result = module_list
 
-proc getMyPath*(): string =  # BUG: find a better way to determine dll!!
-  ## Determine parasite DLL path based on loaded dlls and `pid` variable
-  ## address. To be improved.
-  let pidAddr = cast[int](unsafeAddr pid)
-  for m in getModulesInfo():
-    let varOffset = pidAddr - m.handle 
-    if 6_000_000 > varOffset and varOffset > 0:
+proc getMyPath*(): string =
+  ## Determine dll path on disk. 
+  for m in getModulesInfo().items:
+    if m.hasNimMain:
       return m.path
   raise newException(OSError, "Unable to determine parasite dll path.")
 
@@ -149,8 +140,6 @@ proc isElevated*(): bool =
     raise newException(OSError, "Unable to obtain process token information.")
   CloseHandle(hToken)
   return bool(elevation.TokenIsElevated)
-
-let myPath* = getMyPath()
 
 when isMainModule:
   echo "Process elevated: " & $isElevated()

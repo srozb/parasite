@@ -35,16 +35,20 @@ proc pickPort(minPort = 5000, tries=64): Port {.inline.} =
       continue
     return Port(i)
 
-proc renderIndex(request: Request, envInfo: StringTableRef): string =
+proc renderIndex(request: Request): string =
+  let envInfo = getEnvInfo()
   compileTemplateFile(HTTPDIR / "index.nwt")
 
 proc renderModules(request: Request, mods: ModuleList): string =
+  let envInfo = getEnvInfo()
   compileTemplateFile(HTTPDIR / "modules.nwt")
 
 proc renderProcesses(request: Request, ps: ProcessList): string =
+  let envInfo = getEnvInfo()
   compileTemplateFile(HTTPDIR / "processes.nwt")
 
 proc renderShell(request: Request, cmd = ""): string =
+  let envInfo = getEnvInfo()
   var output: string
   var exCode: int
   if cmd != "":
@@ -54,6 +58,7 @@ proc renderShell(request: Request, cmd = ""): string =
   compileTemplateFile(HTTPDIR / "shell.nwt")
 
 proc renderWmi(request: Request, namespace = "", query = ""): string =
+  let envInfo = getEnvInfo()
   var output = "Query output..."
   when defined(wmi):
     if request.reqMethod == HttpPost:
@@ -65,8 +70,7 @@ proc renderWmi(request: Request, namespace = "", query = ""): string =
 
 router paraRoutes:
   get "/":
-    let envInfo = getEnvInfo()
-    resp renderIndex(request, envInfo)
+    resp renderIndex(request)
   get "/modules":
     let mods = getModulesInfo()
     resp renderModules(request, mods)

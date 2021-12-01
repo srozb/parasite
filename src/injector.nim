@@ -21,7 +21,7 @@ proc processWrite*(hProcess: HANDLE, buffer: string, protect: DWORD): LPVOID =
 
 proc resolveFunc(modName, funcName: string): FARPROC =
   ## Returns pointer to given procedure.
-  var hModule = GetModuleHandleW(modName.LPCSTR)
+  var hModule = GetModuleHandleA(modName.LPCSTR)
   result = GetProcAddress(hModule, funcName.LPCSTR)
   CloseHandle(hModule)
 

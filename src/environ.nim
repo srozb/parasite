@@ -4,7 +4,9 @@ import psapi
 import os
 import strutils
 
-const arch* = $(sizeof(int)*8)
+const 
+  arch* = $(sizeof(int)*8)
+  ver* = "0.2.0"
 
 proc getEnvInfo*(): StringTableRef =
   ## Returns table with details regarding process/system environment.

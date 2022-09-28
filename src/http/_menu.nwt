@@ -34,7 +34,7 @@
 {% endif %}
 <div class="box">
   <div class="block">
-    <p><a href="https://github.com/srozb/parasite">Parasite v.0.1.0</a> {{ arch }}-bit</p>
+    <p><a href="https://github.com/srozb/parasite">Parasite v.{{ ver }}</a> {{ arch }}-bit</p>
     <p>Host: {{envInfo["pName"]}} ({{ envInfo["pid"] }})</p>
   </div>
 </div>

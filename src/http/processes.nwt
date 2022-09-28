@@ -26,7 +26,7 @@
           {% if p.accessible %}
           <button class="button is-info is-small is-rounded" onclick="location.href='/processes/dump/{{p.pid}}';">Dump</button>
           <button class="button is-warning is-small is-rounded" onclick="location.href='/processes/inject/{{p.pid}}';">Inject</button>
-          <button class="button is-danger is-outlined is-small is-rounded" onclick="location.href='/processes/kill/{{p.pid}}';">Kill</button>
+          <button class="button is-danger is-outlined is-small is-rounded" hx-delete="/processes/kill/{{p.pid}}" hx-target="closest tr">Kill</button>
           {% endif %}
         </td>
       </tr>

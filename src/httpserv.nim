@@ -18,6 +18,7 @@ const
   BINDADDR = "127.0.0.1"
   HTTPDIR = getScriptDir() / "http"
   BULMACSS = readFile(HTTPDIR / "bulma.min.css")
+  HTMX = readFile(HTTPDIR / "htmx.min.js")
 
 proc pickPort(minPort = 5000, tries=64): Port {.inline.} =
   ## Try to bind a port to determine if it can be used by http module. If port
@@ -47,12 +48,14 @@ proc renderProcesses(request: Request, ps: ProcessList): string =
   let envInfo = getEnvInfo()
   compileTemplateFile(HTTPDIR / "processes.nwt")
 
-proc renderShell(request: Request, cmd = ""): string =
+proc renderShell(request: Request, cmd = ""): string =  # TODO: separate the api request (command execution)
   let envInfo = getEnvInfo()
-  var output: string
-  var exCode: int
+  var 
+    output: string
+    exCode: int
   if cmd != "":
     (output, exCode) = runShell(cmd)
+    return output
   else:
     output = "Command output..."
   compileTemplateFile(HTTPDIR / "shell.nwt")
@@ -82,11 +85,11 @@ router paraRoutes:
       redirect "/modules"
     else:
       resp p("unable to load module.")
-  get "/modules/unload/@modName":
+  delete "/modules/unload/@modName":
     if unloadModule(@"modName"):
-      redirect "/modules"
+      resp ""
     else:
-      resp p("unable to unload module.")
+      resp p("unable to unload module.")  # TODO
   get "/processes/dump/@targetPid":
     when defined(dumper):
       discard dumpToFile(@"targetPid".parseInt(), r"C:\Temp\image_" & @"targetPid" & ".dmp")  # EXPERIMENTAL
@@ -94,12 +97,12 @@ router paraRoutes:
   get "/processes/inject/@targetPid":
     injectModule(@"targetPid".parseInt(), getMyPath())
     redirect "/processes"
-  get "/processes/kill/@targetPid":
+  delete "/processes/kill/@targetPid":
     terminatePid(@"targetPid".parseInt())
-    redirect "/processes"
+    resp ""  # TODO: check if success.
   get "/shell":
     resp renderShell(request)
-  post "/shell":
+  put "/shell":
     resp renderShell(request, @"cmd")
   get "/wmi":
     resp renderWmi(request)
@@ -109,6 +112,8 @@ router paraRoutes:
     quit()
   get "/bulma.min.css":
     resp(content=BULMACSS, contentType="text/css;charset=utf=8")
+  get "/htmx.min.js":
+    resp(content=HTMX, contentType="application/javascript;charset=utf-8")
 
 proc runHttpServ*() =
   ## Serve http module.
@@ -118,4 +123,6 @@ proc runHttpServ*() =
   jester.serve()
 
 when isMainModule:
+  proc NimMain*() {.cdecl, importc, exportc, dynlib, used.}  # psapi getMyPath() requires it
+
   runHttpServ()

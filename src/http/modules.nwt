@@ -21,7 +21,7 @@
       {% endif %}
         <td>{{ m.handle }}</td>
         <td>{{ m.path }}</td>
-        <td><button class="button is-danger is-outlined is-small is-rounded" onclick="location.href='/modules/unload/{{m.name}}';">Unload</button></td>
+        <td><button class="button is-danger is-outlined is-small is-rounded" hx-delete="/modules/unload/{{m.name}}" hx-target="closest tr">Unload</button></td>
       </tr>
       {% endfor %}
     </tbody>

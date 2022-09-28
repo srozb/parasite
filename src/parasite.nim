@@ -1,5 +1,6 @@
 import winim
 import httpserv
+import shell
 when defined(fakeexports):
   import fakeexports
 
@@ -9,7 +10,11 @@ when defined(fakeexports):
 proc NimMain() {.cdecl, importc.}
 
 proc DllMain(hinstDLL: HINSTANCE, fdwReason: DWORD, lpvReserved: LPVOID): BOOL {.stdcall, exportc, dynlib.} =
+  if fdwReason != DLL_PROCESS_ATTACH:
+    return true
+
   NimMain()
-  runHttpServ()
+  
+  runHttpServ()  # beware the loader lock
 
   return true

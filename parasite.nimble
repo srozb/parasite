@@ -1,13 +1,12 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.2.0"
 author        = "srozb"
 description   = "dll injection/hijack made fun"
 license       = "MIT"
 srcDir        = "src"
 # installExt    = @["nim"]
 installFiles   = @["parasite.nim"]
-# bin           = @["parasite"]
 namedBin = {
     "parasite"  : "parasite.dll", 
     "injector"  : "injector.exe", 

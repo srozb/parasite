@@ -20,7 +20,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          files: >
+          files: |
             utils-win64.zip
             release/parasite.dll
 

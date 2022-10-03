@@ -1,13 +1,18 @@
 # Parasite - dll injection/hijack made fun
 
-Why dll injection/hijack has to be boring? Nim is fun and allows for combining
-jester, winim and some fancy css in a single tiny library.
+Why dll injection/hijack has to be boring? This project aims to create fun dll 
+library that brings some neat features to pwned process. It combines the power 
+of jester, winim as well as bulma css and htmx to keep your experience on 
+desired level. All compiled into single binary under 1MB size.
 
-This project was created to learn Nim and play with some Windows internals. 
-I wanted to take over running process and be able to call winapi functions 
-under different security context.
+I've created it to learn Nim and get familiar with Windows internals, especially
+wanted to play around with some winapi functions under different security 
+context.
 
-## Screenshots
+It's also suitable for pwning Microsoft Office by planting malicious Add-ons 
+(XLL etc.).
+
+## Showcase
 
 ![Frontpage](imgs/front.PNG)
 
@@ -43,13 +48,29 @@ You can compile library and executables with `nimble build` or alternatively:
 
 ```batch
 nim c --app=lib --nomain -d:dumper -d:release --passL:-s -o:parasite-x64.dll src\parasite.nim
+nim c --app=lib --nomain -d:dumper -d:fakeexports -d:release --passL:-s -o:dbghelp.dll parasite.nim
 ```
 
-- `-d:fakeexports` will include fakeexports.nim and predefined `dbghelp.dll` export.
+- `-d:fakeexports` will include fakeexports.nim and predefined `dbghelp.dll` 
+export. Feel free to adjust it to your needs.
+
+### x86 support
+
+You can use 32bit version of Nim to compile parasite to x86 arch. 
+Alternatively, you can cross-compile on x64:
+
+1. Ensure mingw-32 is in your path variable.
+2. Compile with the following flags:
+
+```
+nim --cpu:i386 -d:release c src\parasite.nim
+```
 
 ## Known Issues
 
-- Not tested under x86 architecture
+- Loader lock present
 - WMI module is not ready yet
+
+## Acknoledgments
 
 Heavily inspired by wonderful [byt3bl33d3r/OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim) repo.

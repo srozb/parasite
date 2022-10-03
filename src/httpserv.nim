@@ -17,8 +17,8 @@ when defined(dumper):
 const 
   BINDADDR = "127.0.0.1"
   HTTPDIR = getScriptDir() / "http"
-  BULMACSS = readFile(HTTPDIR / "bulma.min.css")
-  HTMX = readFile(HTTPDIR / "htmx.min.js")
+  BULMACSS = staticRead HTTPDIR / "bulma.min.css"
+  HTMX = staticRead HTTPDIR / "htmx.min.js"
 
 proc pickPort(minPort = 5000, tries=64): Port {.inline.} =
   ## Try to bind a port to determine if it can be used by http module. If port
@@ -38,15 +38,15 @@ proc pickPort(minPort = 5000, tries=64): Port {.inline.} =
 
 proc renderIndex(request: Request): string =
   let envInfo = getEnvInfo()
-  compileTemplateFile(HTTPDIR / "index.nwt")
+  compileTemplateFile HTTPDIR / "index.nwt"
 
 proc renderModules(request: Request, mods: ModuleList): string =
   let envInfo = getEnvInfo()
-  compileTemplateFile(HTTPDIR / "modules.nwt")
+  compileTemplateFile HTTPDIR / "modules.nwt" 
 
 proc renderProcesses(request: Request, ps: ProcessList): string =
   let envInfo = getEnvInfo()
-  compileTemplateFile(HTTPDIR / "processes.nwt")
+  compileTemplateFile HTTPDIR / "processes.nwt"
 
 proc renderShell(request: Request, cmd = ""): string =  # TODO: separate the api request (command execution)
   let envInfo = getEnvInfo()
@@ -58,7 +58,7 @@ proc renderShell(request: Request, cmd = ""): string =  # TODO: separate the api
     return output
   else:
     output = "Command output..."
-  compileTemplateFile(HTTPDIR / "shell.nwt")
+  compileTemplateFile HTTPDIR / "shell.nwt"
 
 proc renderWmi(request: Request, namespace = "", query = ""): string =
   let envInfo = getEnvInfo()
@@ -69,7 +69,7 @@ proc renderWmi(request: Request, namespace = "", query = ""): string =
       # echo namespace
       # echo query
       # echo output
-  compileTemplateFile(HTTPDIR / "wmi.nwt")
+  compileTemplateFile HTTPDIR / "wmi.nwt"
 
 router paraRoutes:
   get "/":

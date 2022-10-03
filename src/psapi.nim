@@ -60,7 +60,7 @@ proc getModulesInfo*(): ModuleList =
   var  
     cbNeeded = 0.DWORD
     hMods: ModuleHandles
-    module_list: ModuleList
+    moduleList: ModuleList
   if EnumProcessModules(hProcess, &hMods[0], sizeof(hMods).DWORD, &cbNeeded) == FALSE:
     raise newException(IOError, "Unable to enumerate process modules") 
   for h in hMods:
@@ -70,8 +70,8 @@ proc getModulesInfo*(): ModuleList =
         mName = mPath.rsplit('\\', maxsplit=1)[1]
         hasNimMain = GetProcAddress(h, "NimMain".LPCSTR) != cast[FARPROC](0)
         mdl = Module(name: mName, path: mPath, handle: h, hasNimMain:hasNimMain)
-      module_list.add(mdl)
-  result = module_list
+      moduleList.add(mdl)
+  result = moduleList
 
 proc getMyPath*(): string =
   ## Determine dll path on disk. 
@@ -100,7 +100,7 @@ proc resolvePidPath*(targetPid: int): string =
 
 proc getRunningProcesses*(): ProcessList =
   ## Returns a list of running processes.
-  var process_list: ProcessList 
+  var processList: ProcessList 
   for p in pids().items:
     var 
       procName = "Unknown"
@@ -114,8 +114,8 @@ proc getRunningProcesses*(): ProcessList =
     except OSError:
       discard
     let process = Process(name: procName, path: procPath, pid: p, accessible:accessible)
-    process_list.add(process)
-  return process_list
+    processList.add(process)
+  return processList
 
 proc terminatePid*(targetPid: int) =
   ## Terminate remote process of given `targetPid`

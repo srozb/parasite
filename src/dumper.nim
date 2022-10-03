@@ -6,12 +6,12 @@ type
 
 proc MiniDumpWriteDump*(
   hProcess: HANDLE,
-  ProcessId: DWORD, 
-  hFile: HANDLE, 
-  DumpType: MINIDUMP_TYPE, 
-  ExceptionParam: PTR, 
-  UserStreamParam: PTR,
-  CallbackParam: PTR
+  processId: DWORD, 
+  file: HANDLE, 
+  dumpType: MINIDUMP_TYPE, 
+  exceptionParam: PTR, 
+  userStreamParam: PTR,
+  callbackParam: PTR
 ): BOOL {.importc: "MiniDumpWriteDump", dynlib: r"C:\Windows\System32\dbghelp.dll", stdcall.}
 
 proc dumpToFile*(targetPid: int, dumpFile: string): bool =

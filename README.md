@@ -1,16 +1,12 @@
 # Parasite - dll injection/hijack made fun
 
-Why dll injection/hijack has to be boring? This project aims to create fun dll 
-library that brings some neat features to pwned process. It combines the power 
-of jester, winim as well as bulma css and htmx to keep your experience on 
-desired level. All compiled into single binary under 1MB size.
+Why does dll injection/hijack have to be boring? This project aims to create a fun DLL library that brings some neat features to pwned processes. 
+It combines the power of Jester, WinIM as well as Bulma CSS and HTMX to keep your experience on desired level. 
+All compiled into a single binary under 1MB size.
 
-I've created it to learn Nim and get familiar with Windows internals, especially
-wanted to play around with some winapi functions under different security 
-context.
-
-It's also suitable for pwning Microsoft Office by planting malicious Add-ons 
-(XLL etc.).
+I’ve created it to learn Nim and get familiar with Windows internals, especially wanting to play around with some WinAPI functions under 
+different security contexts.
+It’s also suitable for pwning Microsoft Office by planting malicious Add-ons (XLL etc.).
 
 ## Showcase
 

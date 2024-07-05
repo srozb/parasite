@@ -9,6 +9,13 @@ proc DllMain(hinstDLL: HINSTANCE, fdwReason: DWORD, lpvReserved: LPVOID): BOOL {
   if fdwReason != DLL_PROCESS_ATTACH: return true
 
   NimMain()
-  runHttpServ()  # beware the loader lock
+
+  when defined(unlockloader):
+    import lockpick
+    unlockLoaderLock()
+    spawn runHttpServ()
+    lockLoaderLock()
+  else:
+    runHttpServ()
 
   return true

@@ -115,7 +115,7 @@ router paraRoutes:
   get "/htmx.min.js":
     resp(content=HTMX, contentType="application/javascript;charset=utf-8")
 
-proc runHttpServ*() =
+proc runHttpServ*() {.stdcall.} =
   ## Serve http module.
   let port = pickPort()
   let settings = newSettings(port=port, bindAddr=BINDADDR)

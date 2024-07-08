@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.0"
+version       = "0.3.1"
 author        = "srozb"
 description   = "dll injection/hijack made fun"
 license       = "MIT"
@@ -18,4 +18,4 @@ namedBin = {
 
 # Dependencies
 
-requires "nim >= 1.6.0, winim, jester, nimja, https://github.com/enthus1ast/psutil-nim"
+requires "nim >= 2.0.0, winim, jester, nimja, https://github.com/enthus1ast/psutil-nim"

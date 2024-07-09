@@ -4,9 +4,23 @@ import psapi
 import os
 import strutils
 
+
+proc getVer(): string {.compileTime.} =
+  let nimble = staticRead("../parasite.nimble")
+  for l in nimble.splitLines():
+    if l.strip().startsWith("version"):
+      return "v." & l.split('"')[1]
+  return "v.<unknown>"
+
+proc getCompileEnv(): string {.compileTime.} =
+  let user = staticExec("whoami").strip()
+  let host = staticExec("hostname").strip()
+  return user & "@" & host
+
 const 
   arch* = $(sizeof(int)*8)
-  ver* = "0.2.0"
+  ver* = getVer()
+  compiled* = getCompileEnv()
 
 proc getEnvInfo*(): StringTableRef =
   ## Returns table with details regarding process/system environment.
@@ -17,7 +31,6 @@ proc getEnvInfo*(): StringTableRef =
   result["pid"] = $GetCurrentProcessId()
   result["pName"] = getAppFilename().rsplit('\\', 1)[1]
   result["myPath"] = getMyPath()
-  
 
 when isMainModule:
   let environ = getEnvInfo()

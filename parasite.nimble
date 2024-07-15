@@ -1,13 +1,12 @@
 # Package
 
-version       = "0.3.2"
+version       = "0.3.3"
 author        = "srozb"
 description   = "dll injection/hijack made fun"
 license       = "MIT"
 srcDir        = "src"
 binDir        = "release"
-# installExt    = @["nim"]
-# installFiles   = @["parasite.nim"]
+
 namedBin = {
     "parasite"  : "parasite.dll", 
     "injector"  : "injector.exe", 
@@ -15,7 +14,4 @@ namedBin = {
     "dumper"    : "para_dump.exe"
 }.toTable()
 
-
-# Dependencies
-
-requires "nim >= 2.0.0, winim, jester, nimja, https://github.com/enthus1ast/psutil-nim"
+requires "nim >= 2.0.0, winim == 3.9.3, jester == 0.6.0, nimja == 0.8.7, https://github.com/enthus1ast/psutil-nim"

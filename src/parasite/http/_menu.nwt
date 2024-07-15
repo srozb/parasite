@@ -30,12 +30,12 @@
   </aside>
 </div>
 {% if request.path=="/modules" %}
-{% importnwt "http/_modloadmenu.nwt" %}
+{% importnwt "parasite/http/_modloadmenu.nwt" %}
 {% endif %}
 <div class="box">
   <div class="block">
-    <p><a href="https://github.com/srozb/parasite">Parasite v.{{ ver }}</a> {{ arch }}-bit</p>
-    <p>Host: {{envInfo["pName"]}} ({{ envInfo["pid"] }})</p>
-    <!--<p>Compiled: {{compiled}}</p>-->
+    <p><a href="https://github.com/srozb/parasite">Parasite v.{{ VER }}</a> {{ ARCH }}-bit</p>
+    <p>Host: {{envInfo["Process Name"]}} ({{ envInfo["Process ID"] }})</p>
+    <!--<p>Compiled: {{COMPILED}}</p>-->
   </div>
 </div>

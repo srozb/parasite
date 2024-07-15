@@ -1,4 +1,4 @@
-{% extends "http/_master.nwt" %}
+{% extends "parasite/http/_master.nwt" %}
 {% block content %}
 <div class="box">
   <div class="block">
@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {% for m in mods %}
-      {% if m.path == envInfo["myPath"] %}
+      {% if m.path == envInfo["Parasite Path"] %}
       <tr class="is-selected">
       {% else %}
       <tr>

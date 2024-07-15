@@ -1,9 +1,9 @@
 import winim
-import httpserv
+import parasite/httpserv
 when defined(fakeexports):
-  import fakeexports
+  import parasite/fakeexports
 when defined(unlockloader):
-  import lockpick
+  import parasite/lockpick
 
 
 proc NimMain() {.cdecl, importc.}

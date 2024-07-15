@@ -9,7 +9,7 @@ Tired of boring dll injection tools? 🦠 Meet **Parasite**, a Nim-based library
 ## Parasite Highlights
 
 * **Inject Delight:** Run code on DLL load (`DllMain`), optionally creating a separate thread and simulating necessary exports to satisfy the loader.
-* **Temporarily Disabling Loader Lock for Thread Creation:** To avoid potential deadlocks when interacting with WinAPI functions like `CreateThread` and `WaitForSingleObject`, the [LoaderLock is temporarily disabled](https://github.com/srozb/parasite/blob/master/src/lockpick.nim#L16) during thread creation. This ensures seamless execution of these system calls without introducing synchronization conflicts.
+* **Temporarily Disabling Loader Lock for Thread Creation:** To avoid potential deadlocks when interacting with WinAPI functions like `CreateThread` and `WaitForSingleObject`, the [LoaderLock is temporarily disabled](https://github.com/srozb/parasite/blob/master/src/parasite/lockpick.nim#L16) during thread creation. This ensures seamless execution of these system calls without introducing synchronization conflicts.
 * **Remote Control**:  Spin up an HTTP server within the injected process, enabling remote control and communication (perfect for targets like `lsass.exe`).
 * **Process Playtime:** Dynamically load/unload dlls in running processes for on-the-fly modifications.
 * **Memory Snapshot:** Capture a full snapshot of the target's memory using `dbghelp.dll`'s  `MiniDumpWriteDump`.

@@ -109,7 +109,7 @@ router paraRoutes:
   post "/wmi":
     resp renderWmi(request, @"namespace", @"query")
   get "/quit":
-    quit()
+    terminateThread()
   get "/bulma.min.css":
     resp(content=BULMACSS, contentType="text/css;charset=utf=8")
   get "/htmx.min.js":

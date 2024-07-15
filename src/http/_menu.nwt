@@ -25,7 +25,7 @@
         <li><a {% if request.path=="/wmi" %}class="is-active"{% endif %} href="/wmi">WMI</a></li>
       </ul>
     <p class="menu-label">
-      <a href="/quit">Terminate Host Process</a>
+      <a href="/quit">Terminate Parasite thread</a>
     </p>
   </aside>
 </div>

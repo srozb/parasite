@@ -6,13 +6,15 @@ import strutils
 
 
 proc getVer(): string {.compileTime.} =
+  ## Returns parasite version string.
   let nimble = staticRead("../parasite.nimble")
   for l in nimble.splitLines():
     if l.strip().startsWith("version"):
-      return "v." & l.split('"')[1]
-  return "v.<unknown>"
+      return l.split('"')[1]
+  return "<unknown>"
 
 proc getCompileEnv(): string {.compileTime.} =
+  ## Returns compilation details for easier tracking.
   let user = staticExec("whoami").strip()
   let host = staticExec("hostname").strip()
   return user & "@" & host

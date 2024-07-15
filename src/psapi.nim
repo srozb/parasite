@@ -126,6 +126,10 @@ proc terminatePid*(targetPid: int) =
     raise newException(OSError, "Unable to terminate process.")
   CloseHandle(hProc)
 
+proc terminateThread*() =
+  ## Terminate current thread
+  ExitThread(0)
+
 proc isElevated*(): bool =
   ## Determine if current process is assigned with elevated token.
   let

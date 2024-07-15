@@ -1,72 +1,75 @@
-# Parasite - dll injection/hijack made fun
+# Parasite - Injecting Some Fun into DLL Manipulation
 
-Why does dll injection/hijack have to be boring? This project aims to create a fun DLL library that brings some neat features to pwned processes. 
-It combines the power of Jester, WinIM as well as Bulma CSS and HTMX to keep your experience on desired level. 
-All compiled into a single binary under 1MB size.
-
-I’ve created it to learn Nim and get familiar with Windows internals, especially wanting to play around with some WinAPI functions under 
-different security contexts.
-It’s also suitable for pwning Microsoft Office by planting malicious Add-ons (XLL etc.).
-
-## Showcase
+Tired of boring dll injection tools? 🦠 Meet **Parasite**, a Nim-based library designed to make process manipulation exciting! 🚀 Combining the power of Winim & Jester with a user-friendly interface built on HTMX and Bulma CSS, Parasite injects  fun into even the most mundane hacking tasks.
 
 ![Frontpage](imgs/front.PNG)
 
 ![Processes](imgs/processes.PNG)
 
-## Features
+## Parasite Highlights
 
-- Run on DLL load (`DllMain`) with optional fake exports, if loader expects them
-- Http server listening on loopback interface, running within injected context (e.g. `lsass.exe`)
-- Load/unload dlls in running process
-- Dump remote process memory to disk (using `dbghelp.dll` `MiniDumpWriteDump`)
-- Migrate to other process by a classic dll injection (`WriteProcessMemory` & `CreateRemoteThread` to `LoadLibrary`)
-- Execute shell command in the context of injected process
-- Modular, easy to extend design - modules can be compiled to standalone execs (injector, dumper)
-- It's fast!
+* **Inject Delight**: Run code on DLL load (`DllMain`), optionally creating a separate thread and simulating necessary exports to satisfy the loader. Temprarily disable **Loader Lock for thread creation**.
+* **Remote Control**:  Spin up an HTTP server within the injected process, enabling remote control and communication (perfect for targets like `lsass.exe`).
+* **Process Playtime**: Dynamically load/unload dlls in running processes for on-the-fly modifications.
+* **Memory Snapshot:** Capture a full snapshot of the target's memory using `dbghelp.dll`'s  `MiniDumpWriteDump`.
+* **Process Migration**: Hop between processes with classic DLL injection techniques (using `WriteProcessMemory`, `CreateRemoteThread`, and `LoadLibrary`).
+* **Command Execution**: Execute shell commands within the context of your injected process for stealthy control. 
+* **Modularity & Speed:**  Parasite's design encourages easy extensibility - build standalone executables (injectors, dumpers) with ease! And it's lightning-fast!⚡
 
-## Requirements
+## Getting Started
 
-Tested under Windows 10 64-bit with the following dependencies: 
+**Tested under**:
 
-(Nim 1.6.0)
+* Windows 10 x64 19042
+* Nim Compiler v.2.0.0
 
-- Winim=3.6.1
-- Jester=0.5.0
-- Nimja=0.4.0
-- psutil=0.6.1 (https://github.com/enthus1ast/psutil-nim)
+**Dependencies:**
 
-## Building
+(Manage via nimble install)
 
-64bit binaries are precompiled and ready to be downloaded. 
+* [Winim = 3.9.3](https://github.com/khchen/winim)
+* [Jester = 0.6.0](https://github.com/dom96/jester)
+* [Nimja = 0.8.7](https://github.com/enthus1ast/nimja)
+* [psutil = 0.6.1](https://github.com/enthus1ast/psutil-nim)
 
-You can compile library and executables with `nimble build` or alternatively:
+**Building Parasite:**
+
+Precompiled x64 binaries are available for download in the releases section of this repo - no setup required, just start pwning!
+
+**Manual Build:**
+
+```batch
+nimble build
+```
+
+or
 
 ```batch
 nim c --app=lib --nomain -d:dumper -d:release --passL:-s -o:parasite-x64.dll src\parasite.nim
 nim c --app=lib --nomain -d:dumper -d:fakeexports -d:release --passL:-s -o:dbghelp.dll parasite.nim
 ```
 
-- `-d:fakeexports` will include fakeexports.nim and predefined `dbghelp.dll` 
-export. Feel free to adjust it to your needs.
+For a DLL with fake exports use `-d:fakeexports` after you adjust `src\fakeexports.nim` with the required exports.
 
-### x86 support
+**X86 Support:**
 
-You can use 32bit version of Nim to compile parasite to x86 arch. 
+You can use 32-bit version of Nim to compile parasite to x86 arch.
 Alternatively, you can cross-compile on x64:
 
 1. Ensure mingw-32 is in your path variable.
 2. Compile with the following flags:
 
-```
+```batch
 nim --cpu:i386 -d:release c src\parasite.nim
 ```
 
-## Known Issues
+## Known Limitations
 
-- Loader lock present
-- WMI module is not ready yet
+* The WMI module is still under development
 
-## Acknoledgments
+---
 
-Heavily inspired by wonderful [byt3bl33d3r/OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim) repo.
+**This project draws inspiration from:**
+
+* The amazing [OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim) repository.
+* Loader Lock unlocking technique haveily inspired on work of [@ElliotKillick](https://github.com/ElliotKillick) especially his [LdrLockLiberator](https://github.com/ElliotKillick/LdrLockLiberator) repository.

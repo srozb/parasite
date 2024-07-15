@@ -8,13 +8,14 @@ Tired of boring dll injection tools? 🦠 Meet **Parasite**, a Nim-based library
 
 ## Parasite Highlights
 
-* **Inject Delight**: Run code on DLL load (`DllMain`), optionally creating a separate thread and simulating necessary exports to satisfy the loader. Temprarily disable **Loader Lock for thread creation**.
+* **Inject Delight:** Run code on DLL load (`DllMain`), optionally creating a separate thread and simulating necessary exports to satisfy the loader.
+* **Temporarily Disabling Loader Lock for Thread Creation:** To avoid potential deadlocks when interacting with WinAPI functions like `CreateThread` and `WaitForSingleObject`, the [LoaderLock is temporarily disabled](https://github.com/srozb/parasite/blob/master/src/lockpick.nim#L16) during thread creation. This ensures seamless execution of these system calls without introducing synchronization conflicts.
 * **Remote Control**:  Spin up an HTTP server within the injected process, enabling remote control and communication (perfect for targets like `lsass.exe`).
-* **Process Playtime**: Dynamically load/unload dlls in running processes for on-the-fly modifications.
+* **Process Playtime:** Dynamically load/unload dlls in running processes for on-the-fly modifications.
 * **Memory Snapshot:** Capture a full snapshot of the target's memory using `dbghelp.dll`'s  `MiniDumpWriteDump`.
 * **Process Migration**: Hop between processes with classic DLL injection techniques (using `WriteProcessMemory`, `CreateRemoteThread`, and `LoadLibrary`).
 * **Command Execution**: Execute shell commands within the context of your injected process for stealthy control. 
-* **Modularity & Speed:**  Parasite's design encourages easy extensibility - build standalone executables (injectors, dumpers) with ease! And it's lightning-fast!⚡
+* **Modularity & Speed:**  Parasite's design encourages easy extensibility - build standalone executables (injectors, dumpers) with ease! And it's lightning-fast!⚡️
 
 ## Getting Started
 
@@ -51,7 +52,7 @@ nim c --app=lib --nomain -d:dumper -d:fakeexports -d:release --passL:-s -o:dbghe
 
 For a DLL with fake exports use `-d:fakeexports` after you adjust `src\fakeexports.nim` with the required exports.
 
-**X86 Support:**
+**x86 Support:**
 
 You can use 32-bit version of Nim to compile parasite to x86 arch.
 Alternatively, you can cross-compile on x64:
@@ -65,6 +66,7 @@ nim --cpu:i386 -d:release c src\parasite.nim
 
 ## Known Limitations
 
+* This project has been flagged as potentially malicious by certain antivirus vendors. This is likely because it has previously been weaponized and submitted to VT.
 * The WMI module is still under development
 
 ---

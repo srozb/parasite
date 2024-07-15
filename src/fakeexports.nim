@@ -22,12 +22,3 @@ import winim
 # Excel XLL Autostart
 # proc xlAutoOpen*(): int {.stdcall, exportc, dynlib.} =
 #   return 1
-
-proc DwmIsCompositionEnabled*(pfEnabled: BOOL): HRESULT {.stdcall, exportc, dynlib.} = 
-  return cast[HRESULT](0)
-
-proc DwmExtendFrameIntoClientArea*(hWnd: HWND, pMarInset: MARGINS): HRESULT {.stdcall, exportc, dynlib.} = 
-  return cast[HRESULT](0)
-
-proc DwmSetWindowAttribute*(hwnd: HWND, dwAttribute: DWORD, pvAttribute: LPCVOID, cbAttribute: DWORD): HRESULT {.stdcall, exportc, dynlib.} = 
-  return cast[HRESULT](0)

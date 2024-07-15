@@ -14,9 +14,9 @@ proc genLockCookie(cookieType = COOKIE_TYPE, lockCount:DWORD = 1): uint =
   return ((GetCurrentThreadId() and TID_MASK).uint shl TID_OFFSET) or 0x1
 
 proc unlockLoaderLock*() =
-  let cookie = genLockCookie()
-
-  let res = LdrUnlockLoaderLock(0.ULONG, cast[PVOID](cookie))
+  let 
+    cookie = genLockCookie()
+    res = LdrUnlockLoaderLock(0.ULONG, cast[PVOID](cookie))
 
   if res == 0: discard "LoaderLock unlocked!"
   else: 

@@ -1,7 +1,7 @@
 when isMainModule:
   import os
   import strutils
-  import parasite/dumper
+  import parasite/procdump
   if paramCount() != 2:
     echo "usage: dumper <pid> <dump filename>"
     quit(-1)

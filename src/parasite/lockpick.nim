@@ -31,3 +31,8 @@ proc lockLoaderLock*() =
   if res == 0: 
     discard "LoaderLock locked, obtained cookie: 0x" & newCookie.toHex
   else: discard "Failed with: 0x" & res.toHex
+
+template withLoaderUnlocked*(body: untyped) = 
+  unlockLoaderLock()
+  body
+  lockLoaderLock()

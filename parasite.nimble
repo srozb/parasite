@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.4.0"
+version       = "0.4.1"
 author        = "srozb"
 description   = "dll injection/hijack made fun"
 license       = "MIT"
@@ -10,7 +10,7 @@ binDir        = "release"
 namedBin = {
     "parasite"  : "parasite.dll", 
     "injector"  : "injector.exe", 
-    "httpserv"  : "para_http.exe",
+    "parahttp"  : "parahttp.exe",
     "dumper"    : "dumper.exe"
 }.toTable()
 

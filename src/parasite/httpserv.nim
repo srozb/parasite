@@ -8,12 +8,12 @@ import shell
 import environ
 import strtabs
 import net
-import injector
+import dllinject
 import strutils
 when defined(wmi):
   import wmi
 when defined(dumper):
-  import dumper
+  import procdump
 
 proc pickPort(minPort = 5000, tries=64): Port {.inline.} =
   ## Try to bind a port to determine if it can be used by http module. If port

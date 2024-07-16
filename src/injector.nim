@@ -1,7 +1,7 @@
 when isMainModule:
   import os
   import strutils
-  import parasite/injector
+  import parasite/dllinject
 
   if paramCount() != 2:
     echo "usage: injector <pid> <dll>"

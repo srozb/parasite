@@ -69,9 +69,19 @@ nim --cpu:i386 -d:release c src\parasite.nim
 * This project has been flagged as potentially malicious by certain antivirus vendors. This is likely because it has previously been weaponized and submitted to VT.
 * The WMI module is still under development
 
+## Tools
+
+This project includes additional tools for testing its functionalities independently of DLL hijacking techniques.
+
+|Tool|Description|
+|-|-|
+|`dumper.exe`|Dumps process memory using the `MiniDumpWriteDump` function.|
+|`injector.exe`|Injects a DLL of your choice into a specified process via classic DLL injection.|
+|`parahttp.exe`|Allow for testing web application features independently of any DLL injections|
+
 ---
 
 **This project draws inspiration from:**
 
 * The amazing [OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim) repository.
-* Loader Lock unlocking technique haveily inspired on work of [@ElliotKillick](https://github.com/ElliotKillick) especially his [LdrLockLiberator](https://github.com/ElliotKillick/LdrLockLiberator) repository.
+* The Loader Lock unlocking technique is heavily inspired by the work of [@ElliotKillick](https://github.com/ElliotKillick), particularly his [LdrLockLiberator](https://github.com/ElliotKillick/LdrLockLiberator) repository.

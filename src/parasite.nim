@@ -23,7 +23,7 @@ proc DllMain(hinstDLL: HINSTANCE, fdwReason: DWORD, lpvReserved: LPVOID): BOOL {
         0.DWORD, 
         cast[LPDWORD](NULL)
       )
-      if hThread == NULL: return false
+      if hThread == 0: return false
       WaitForSingleObject(hThread, 20000.DWORD)
   else:
     runHttpServ()

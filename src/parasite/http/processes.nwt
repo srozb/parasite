@@ -15,7 +15,7 @@
     <tbody>
       {% for p in ps %}
       {% if p.accessible %}
-      {% if $p.pid == envInfo["pid"] %}
+      {% if $p.pid == envInfo["Process ID"] %}
       <tr class="is-selected">
       {% else %}
       <tr>

@@ -11,6 +11,7 @@ namedBin = {
     "parasite"  : "parasite.dll", 
     "injector"  : "injector.exe", 
     "parahttp"  : "parahttp.exe",
+    "parasrv"   : "parasrv.exe",
     "dumper"    : "dumper.exe"
 }.toTable()
 

@@ -78,7 +78,7 @@ proc getMyPath*(): string =
   for m in getModulesInfo().items:
     if m.hasNimMain:
       return m.path
-  raise newException(OSError, "Unable to determine parasite dll path.")
+  return getModulesInfo()[0].path  # quick fix for parasrv
 
 proc getCurrentUser*(): string =
   ## Call `GetUserNameA` to obtain name of the owner of current process.

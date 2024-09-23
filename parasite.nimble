@@ -15,4 +15,4 @@ namedBin = {
     "dumper"    : "dumper.exe"
 }.toTable()
 
-requires "nim >= 2.0.0, winim == 3.9.3, jester == 0.6.0, nimja == 0.8.7, https://github.com/enthus1ast/psutil-nim"
+requires "nim >= 2.0.0, winim == 3.9.3, jester == 0.6.0, nimja == 0.8.7, psutil == 0.6.1"
